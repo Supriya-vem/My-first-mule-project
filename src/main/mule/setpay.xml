@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1cb90b6f-c451-4fe8-86a9-6a83dfb05a66" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="5e047058-04b8-4a0c-a3f2-409984abafef" >
+		<http:request-connection protocol="HTTPS" host="dummy.restapiexample.com" port="443" />
+	</http:request-config>
+	<flow name="setpayFlow" doc:id="0a2ad889-8f8d-4f7c-803d-f8e3c88ad37d" >
+		<http:listener doc:name="Listener" doc:id="b507cd02-8d8d-49e5-b1e5-2ad1284d6115" config-ref="HTTP_Listener_config" path="/set/{id}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="3cb75acb-faaf-47e6-bae8-b150f378302a" message="#[attributes.uriParams.id]"/>
+		<set-payload value='#["hello"]' doc:name="Set Payload" doc:id="2ca7b6b6-9a9d-4694-9e85-b312c359ea1f" />
+	</flow>
+</mule>

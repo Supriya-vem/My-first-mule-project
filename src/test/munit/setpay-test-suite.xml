@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="setpay-test-suite.xml" />
+	<munit:test name="setpay-test-suite-setpayFlowTest" doc:id="9c372c8b-7c12-4857-a1b1-9332b60d7da8" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="4d534ce4-7b6a-47d9-9f9f-384643657b46" >
+				<munit:attributes value='#["uriParameter":{"id": 1}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to setpayFlow" doc:id="edb42d4d-5edc-423e-88c8-8396ba12c5ec" name="setpayFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="3a8ae333-00d7-40e9-9ab0-6f9dabfc09fb" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="setpay-test-suite-error" doc:id="8d0da413-9d97-460f-8029-38853a5aca11" description="Test" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="e501cea5-e9c9-439f-ade2-d300075998a2" >
+				<munit:attributes value='#["uriParameter":{"id": "mkmv"}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to setpayFlow" doc:id="359d3a2c-3efc-45ad-bdef-4dbcc6b498dc" name="setpayFlow" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="b56e6ad8-2b96-41ea-b7fe-5583636a8059" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
